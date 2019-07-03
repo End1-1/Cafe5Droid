@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cafe5droid</string>
+    <string name="Password">Գախտնաբառ</string>
+    <string name="title_activity_alogin">Մուտք</string>
+    <string name="Login">Մուտք</string>
+    <string name="Settings">Կարգավորումներ</string>
+    <string name="ServerIP">Սերվերի IP հասցե</string>
+    <string name="LoginIntoServer">Մուտք․․․</string>
+    <string name="Error">Սխալ</string>
+    <string name="AccessDenied">Մոտքը արգելված է</string>
+    <string name="Empty">" "</string>
+    <string name="OK">Լավ</string>
+    <string name="ProcessHall">Սրահի նախապատրաստում</string>
+    <string name="Loading">Նախապատրաստում</string>
+    <string name="HallName">Ընտրեք սրահը</string>
+    <string name="Dept">Բաժին</string>
+    <string name="DishType">Տեսակ</string>
+    <string name="Staff">Սպասարկող</string>
+    <string name="Table">Սեղան</string>
+    <string name="ServerPort">Սերվերի պորտ</string>
+    <string name="DownloadMenu">Բերնել ճաշացանկը</string>
+    <string name="Save">Հիշել</string>
+    <string name="Saved">Պահպանված է</string>
+    <string name="ProcessMenu">Ճաշացանկի նախապատրաստւոմ</string>
+    <string name="All">Բաժին</string>
+    <string name="SelectMenu">Ընտրեք ճաշացանկը</string>
+    <string name="Menu">Ճաշացանկ</string>
+    <string name="Place">Տեղ</string>
+    <string name="Checkout">Պատվիրել</string>
+    <string name="TotalAmount">Ընդամենը</string>
+</resources>

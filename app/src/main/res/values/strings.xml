@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Cafe5droid</string>
+    <string name="title_activity_alogin">ALogin</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="Settings">Settings</string>
+    <string name="ServerIP">Server IP</string>
+    <string name="LoginIntoServer">Login into server</string>
+    <string name="Error">Error</string>
+    <string name="AccessDenied">Access denied</string>
+    <string name="Empty"></string>
+    <string name="OK">OK</string>
+    <string name="Loading">Loading</string>
+    <string name="ProcessHall">Processing halls</string>
+    <string name="HallName">Select hall</string>
+    <string name="Dept">Dept</string>
+    <string name="DishType">Type</string>
+    <string name="Table">Table</string>
+    <string name="Staff">Staff</string>
+    <string name="ServerPort">Server port</string>
+    <string name="DownloadMenu">Download menu</string>
+    <string name="Save">Save</string>
+    <string name="Saved">Saved</string>
+    <string name="ProcessMenu">Process menu</string>
+    <string name="All">All</string>
+    <string name="Menu">Menu</string>
+    <string name="SelectMenu">Select menu</string>
+    <string name="Place">Place</string>
+    <string name="Checkout">Checkout</string>
+    <string name="TotalAmount">Amount total</string>
+</resources>
