@@ -28,4 +28,7 @@
     <string name="Place">Place</string>
     <string name="Checkout">Checkout</string>
     <string name="TotalAmount">Amount total</string>
+    <string name="DownloadHall">Download hall</string>
+    <string name="Basket">Basket</string>
+    <string name="SettingsPassword">Settings password</string>
 </resources>

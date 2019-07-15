@@ -38,6 +38,16 @@
             android:layout_height="40dp"
             app:srcCompat="@drawable/basket" />
 
+        <TextView
+            android:id="@+id/tvBasket"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:gravity="center_vertical"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="@string/Basket" />
+
     </LinearLayout>
 
     <View

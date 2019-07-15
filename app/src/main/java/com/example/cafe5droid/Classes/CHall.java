@@ -62,6 +62,9 @@ public final class CHall {
     public void setupHall(Context context, JSONArray ha, JSONArray ta) {
         GsonBuilder builder = new GsonBuilder();
         Gson g = builder.create();
+        listOfFilteredTables.clear();
+        listOfTables.clear();
+        listOfHall.clear();
         try {
             for (int i = 0; i < ha.length(); i++) {
                 SHall h = g.fromJson(ha.getJSONObject(i).toString(), SHall.class);

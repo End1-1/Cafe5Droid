@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cafe5droid.Activities.AOrder;
 import com.example.cafe5droid.Adapters.DishAdapter;
@@ -128,5 +129,6 @@ public class Order extends Fragment implements DishPart1Adapter.DishPart1Adapter
     public void dishSelected(SDish dish) {
         AOrder ao = (AOrder) getActivity();
         ao.adOrder.addDish(dish);
+        Toast.makeText(getActivity(), String.format("%s + 1", dish.name), Toast.LENGTH_SHORT).show();
     }
 }

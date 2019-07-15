@@ -39,7 +39,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvServerPort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,6 +52,29 @@
             android:hint="@string/ServerPort"
             android:inputType="number"
             android:layout_gravity="end"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvSettignsPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/SettingsPassword" />
+
+        <EditText
+            android:id="@+id/edSettingsPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:hint="@string/SettingsPassword"
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,6 +103,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/DownloadMenu" />
+
+    <Button
+        android:id="@+id/btnDownloadHall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/DownloadHall" />
 
     <Button
         android:id="@+id/btnSave"

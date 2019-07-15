@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.cafe5droid.Classes.CActivity;
+import com.example.cafe5droid.Classes.CHall;
 import com.example.cafe5droid.Classes.CMenu;
 import com.example.cafe5droid.Classes.CPref;
 import com.example.cafe5droid.Classes.CSocketClient;
@@ -25,9 +26,17 @@ public class ASettings extends CActivity {
         setContentView(R.layout.activity_asettings);
         setEditText(R.id.edServerIP, CPref.serverIP);
         setEditInteger(R.id.edServerPort, CPref.serverPort);
+        setEditText(R.id.edSettingsPassword, CPref.settingsPassword);
         button(R.id.btnDownloadMenu);
         button(R.id.btnSave);
+        button(R.id.btnDownloadHall);
         spMenu = findViewById(R.id.spMenu);
+        if (CMenu.listOfMenu.isEmpty()) {
+            CMenu.loadFromDB(this);
+        }
+        ArrayAdapter<String> aa = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CMenu.listOfMenu);
+        spMenu.setAdapter(aa);
+        spMenu.setSelection(aa.getPosition(CPref.menuName));
     }
 
     @Override
@@ -36,6 +45,7 @@ public class ASettings extends CActivity {
             case R.id.btnSave:
                 CPref.setString(this, "server_id", editTextText(R.id.edServerIP));
                 CPref.setInt(this, "server_port", editTextInteger(R.id.edServerPort));
+                CPref.setSettingsPassword(this, editTextText(R.id.edSettingsPassword));
                 if (spMenu.getSelectedItem() != null) {
                     CPref.setString(this, "menu", spMenu.getSelectedItem().toString());
                 }
@@ -44,6 +54,9 @@ public class ASettings extends CActivity {
                 break;
             case R.id.btnDownloadMenu:
                 downloadMenu();
+                break;
+            case R.id.btnDownloadHall:
+                downloadHall();
                 break;
         }
     }
@@ -58,15 +71,35 @@ public class ASettings extends CActivity {
         }
     }
 
+    private void downloadHall() {
+        try {
+            JSONObject o = new JSONObject();
+            o.put("cmd", CSocketClient.cmd_hall);
+            sendMessage(o.toString(), R.string.ProcessMenu);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void messageResponse(JSONObject o) {
         super.messageResponse(o);
         try {
-            JSONArray ja = o.getJSONArray("menu");
-            CMenu.processDishes(ja);
-            CMenu.save(this);
-            ArrayAdapter<String> aa = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CMenu.listOfMenu);
-            spMenu.setAdapter(aa);
+            int cmd = o.getInt("cmd");
+            switch (cmd) {
+                case CSocketClient.cmd_menu:
+                    JSONArray ja = o.getJSONArray("menu");
+                    CMenu.processDishes(ja);
+                    CMenu.save(this);
+                    ArrayAdapter<String> aa = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CMenu.listOfMenu);
+                    spMenu.setAdapter(aa);
+                    break;
+                case CSocketClient.cmd_hall:
+                    JSONArray halls = o.getJSONArray("halls");
+                    JSONArray tables = o.getJSONArray("tables");
+                    AHall.hall.setupHall(this, halls, tables);
+                    break;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

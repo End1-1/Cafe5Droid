@@ -29,4 +29,7 @@
     <string name="Place">Տեղ</string>
     <string name="Checkout">Պատվիրել</string>
     <string name="TotalAmount">Ընդամենը</string>
+    <string name="DownloadHall">Բերնել սրահը</string>
+    <string name="Basket">Զամբյուղ</string>
+    <string name="SettingsPassword">Գախտնաբառ</string>
 </resources>

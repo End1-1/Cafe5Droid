@@ -31,6 +31,7 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
         setContentView(R.layout.activity_order);
         place = textView(R.id.tvTable);
         ivCheckout = imageView(R.id.ivShowCard, this);
+        textView(R.id.tvBasket).setOnClickListener(this);
         STable table = (STable) getIntent().getSerializableExtra("table");
         if (table != null) {
             place.setText(String.format("%s: %s", getString(R.string.Place), table.name));
@@ -61,6 +62,9 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
                 fragmentTransaction.replace(R.id.lvContainer, card, FRAGMENT_ORDER);
                 fragmentTransaction.commit();
                 break;
+            case R.id.tvBasket:
+                buttonClick(R.id.ivShowCard);
+                break;
         }
     }
 
@@ -76,6 +80,8 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
         if (CPref.settingsPassword.isEmpty() || allowBack) {
             CPref.setLastTable(this, 0);
             super.onBackPressed();
+        } else {
+
         }
     }
 
