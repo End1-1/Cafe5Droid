@@ -31,4 +31,5 @@
     <string name="DownloadHall">Download hall</string>
     <string name="Basket">Basket</string>
     <string name="SettingsPassword">Settings password</string>
+    <string name="Cancel">Cancel</string>
 </resources>

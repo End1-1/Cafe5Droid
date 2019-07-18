@@ -17,6 +17,7 @@ import com.example.cafe5droid.Classes.CPref;
 import com.example.cafe5droid.Classes.CSocketClient;
 import com.example.cafe5droid.R;
 import com.example.cafe5droid.Structures.SHall;
+import com.example.cafe5droid.Structures.SStaff;
 import com.example.cafe5droid.Structures.STable;
 
 import org.json.JSONArray;
@@ -137,5 +138,11 @@ public class AHall extends CActivity implements HallAdapter.HallAdapterSelected,
         v.put("table", table);
         createActivityWithData(AOrder.class, v);
         CPref.setLastTable(this, table.id);
+    }
+
+    @Override
+    public void onBackPressed() {
+        SStaff.unset(this);
+        super.onBackPressed();
     }
 }

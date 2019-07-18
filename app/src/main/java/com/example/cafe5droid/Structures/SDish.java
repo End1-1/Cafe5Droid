@@ -3,6 +3,10 @@ package com.example.cafe5droid.Structures;
 import com.google.gson.annotations.SerializedName;
 
 public class SDish {
+    public Integer internalId;
+
+    public String remoteId;
+
     @SerializedName("menu_name")
     public String menu;
 
@@ -45,7 +49,11 @@ public class SDish {
     @SerializedName("f_description")
     public String description;
 
+    @SerializedName("f_qty1")
     public String qty1;
+
+    @SerializedName("f_qty2")
+    public String qty2;
 
     public String image;
 

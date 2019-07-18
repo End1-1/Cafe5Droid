@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,12 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cafe5droid.Activities.AOrder;
-import com.example.cafe5droid.Adapters.DishAdapter;
-import com.example.cafe5droid.Adapters.DishPart1Adapter;
-import com.example.cafe5droid.Adapters.DishPart2Adapter;
 import com.example.cafe5droid.Adapters.OrderAdapter;
-import com.example.cafe5droid.Classes.CMenu;
-import com.example.cafe5droid.Classes.CPref;
 import com.example.cafe5droid.R;
 import com.example.cafe5droid.Structures.SDish;
 
@@ -51,12 +45,13 @@ public class Card extends Fragment implements View.OnClickListener, OrderAdapter
 
     @Override
     public void onClick(View v) {
+        AOrder o = (AOrder) getActivity();
         switch (v.getId()) {
             case R.id.ivBack:
-                AOrder o = (AOrder) getActivity();
                 o.goToMenu();
                 break;
             case R.id.tvCheckout:
+                o.checkout();
                 break;
         }
     }

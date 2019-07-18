@@ -14,4 +14,10 @@ public class STable implements Serializable {
 
     @SerializedName("f_hall")
     public int hall;
+
+    public String header;
+
+    public STable () {
+        header = "";
+    }
 }

@@ -18,6 +18,7 @@ import com.example.cafe5droid.Adapters.DishAdapter;
 import com.example.cafe5droid.Adapters.DishPart1Adapter;
 import com.example.cafe5droid.Adapters.DishPart2Adapter;
 import com.example.cafe5droid.Adapters.OrderAdapter;
+import com.example.cafe5droid.Classes.CDatabase;
 import com.example.cafe5droid.Classes.CMenu;
 import com.example.cafe5droid.Classes.CPref;
 import com.example.cafe5droid.R;
@@ -128,7 +129,6 @@ public class Order extends Fragment implements DishPart1Adapter.DishPart1Adapter
     @Override
     public void dishSelected(SDish dish) {
         AOrder ao = (AOrder) getActivity();
-        ao.adOrder.addDish(dish);
-        Toast.makeText(getActivity(), String.format("%s + 1", dish.name), Toast.LENGTH_SHORT).show();
+        ao.addDish(dish);
     }
 }

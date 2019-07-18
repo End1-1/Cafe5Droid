@@ -1,6 +1,7 @@
 package com.example.cafe5droid.Classes;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -162,5 +164,34 @@ public class CActivity extends AppCompatActivity implements View.OnClickListener
 
     public void log(String msg, String tag) {
         Log.d(tag, msg);
+    }
+
+    public void createPasswordDialog(String title, int id) {
+        LayoutInflater li = LayoutInflater.from(this);
+        View v = li.inflate(R.layout.dialog_password, null);
+        final EditText edPass = v.findViewById(R.id.edPassword);
+        final int msgId = id;
+        ((TextView)v.findViewById(R.id.tvMessage)).setText(title);
+        AlertDialog.Builder ab = new AlertDialog.Builder(this);
+        ab.setView(v);
+        ab.setCancelable(false);
+        ab.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                onPassword(edPass.getText().toString(), msgId);
+            }
+        });
+        ab.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dlg = ab.create();
+        dlg.show();
+    }
+
+    public void onPassword(String pwd, int id) {
+
     }
 }

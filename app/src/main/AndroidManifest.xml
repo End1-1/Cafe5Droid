@@ -14,7 +14,6 @@
         <activity android:name=".Activities.AHall"></activity>
         <activity android:name=".Activities.ASettings" />
         <activity android:name=".Activities.AOrder" />
-        <activity android:name=".Activities.ALogin" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

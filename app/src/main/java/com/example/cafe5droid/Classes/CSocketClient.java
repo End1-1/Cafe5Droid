@@ -19,6 +19,7 @@ public class CSocketClient extends AsyncTask<String, Integer, Integer> {
     public final static int cmd_hall = 1;
     public final static int cmd_menu = 2;
     public final static int cmd_checkuser = 3;
+    public final static int cmd_apporder = 21;
 
     JSONObject reply = new JSONObject();
     public String strData;
@@ -32,11 +33,12 @@ public class CSocketClient extends AsyncTask<String, Integer, Integer> {
             DataOutputStream dos = new DataOutputStream(os);
             ByteBuffer bb = ByteBuffer.allocate(4);
             bb.order(ByteOrder.LITTLE_ENDIAN);
-            bb.putInt(strData.length());
+            bb.putInt(strData.getBytes("UTF-8").length);
             byte[] bytes = bb.array();
             dos.write(bytes, 0, 4);
             dos.flush();
-            dos.writeBytes(strData);
+            bytes = strData.getBytes("UTF-8");
+            dos.write(bytes, 0, bytes.length);
             dos.flush();
             InputStream is = s.getInputStream();
             DataInputStream dis = new DataInputStream(is);

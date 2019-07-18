@@ -57,6 +57,7 @@ public class CMenu {
             v.put("menuname", d.menu);
             v.put("part1", d.part1);
             v.put("part2", d.part2);
+            v.put("dishcode", d.id);
             v.put("dishname", d.name);
             v.put("price", d.price);
             v.put("store", d.store);
@@ -75,7 +76,7 @@ public class CMenu {
 
     public static void loadFromDB(Context context) {
         CDatabase db = new CDatabase(context);
-        Cursor c = db.select("select menuname, part1, part2, dishname, price, comment from menu");
+        Cursor c = db.select("select menuname, part1, part2, dishname, price, comment, dishcode from menu");
         SortedSet<String> p1 = new TreeSet<>();
         SortedSet<String> p2 = new TreeSet<>();
         SortedSet<String> m = new TreeSet<>();
@@ -87,6 +88,7 @@ public class CMenu {
             d.name = c.getString(3);
             d.price = c.getString(4);
             d.description = c.getString(5);
+            d.id = c.getString(6);
             p1.add(d.part1);
             p2.add(d.part2);
             m.add(d.menu);

@@ -1,5 +1,6 @@
 package com.example.cafe5droid.Adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.cafe5droid.Classes.CDatabase;
 import com.example.cafe5droid.R;
 import com.example.cafe5droid.Structures.SDish;
 
@@ -20,6 +21,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private LayoutInflater layoutInflater;
     public OrderDishSelected orderDishSelected;
+    private Context context;
 
     public interface OrderDishSelected {
         void orderDishSelected(SDish dish);
@@ -60,6 +62,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     if (orderDishSelected != null) {
                         orderDishSelected.orderDishSelected(dish);
                     }
+                    updateDish(dish);
                     break;
                 case R.id.ivMinus:
                     qty = Integer.valueOf(edQty.getText().toString());
@@ -72,6 +75,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     if (orderDishSelected != null) {
                         orderDishSelected.orderDishSelected(dish);
                     }
+                    updateDish(dish);
                     break;
             }
         }
@@ -86,6 +90,33 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    public void refreshData(Context context, int tableid) {
+        dishes.clear();
+        CDatabase db = new CDatabase(context);
+        String sql = String.format("select * from body where tableid=%d", tableid);
+        db.select(sql);
+        while (db.moveToNext()) {
+            SDish d = new SDish();
+            d.internalId = db.getInt("id");
+            d.id = db.getString("dishcode");
+            d.name = db.getString("dishname");
+            d.qty1 = db.getString("qty1");
+            d.qty2 = db.getString("qty2");
+            d.price = db.getString("price");
+            d.adgCode = db.getString("adgcode");
+            d.print1 = db.getString("print1");
+            d.print2 = db.getString("print2");
+            d.store = db.getString("store");
+            d.remoteId = db.getString("bodyid");
+            dishes.add(d);
+        }
+        notifyDataSetChanged();
+    }
+
+    public SDish getDish(int index) {
+        return dishes.get(index);
+    }
+
     public void addDish(SDish d) {
         SDish dish = d;
         dishes.add(dish);
@@ -93,6 +124,13 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (orderDishSelected != null) {
             orderDishSelected.orderDishSelected(dish);
         }
+    }
+
+    public void updateDish(SDish d) {
+        String sql = String.format("update body set bodyid='%s', qty1='%s', qty2='%s' where id=%d",
+                d.remoteId, d.qty1, d.qty2, d.internalId);
+        CDatabase db = new CDatabase(context);
+        db.exec(sql);
     }
 
     public String total() {
@@ -110,6 +148,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public OrderAdapter(LayoutInflater inflater, OrderDishSelected listener) {
         layoutInflater = inflater;
         orderDishSelected = listener;
+        context = inflater.getContext();
     }
 
     @NonNull

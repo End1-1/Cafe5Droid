@@ -95,6 +95,7 @@ public final class CHall {
             v.put("id", t.id);
             v.put("hall", t.hall);
             v.put("name", t.name);
+            v.put("header", t.header);
             db.insert("tables");
         }
     }
@@ -112,12 +113,13 @@ public final class CHall {
             hall.settings = c.getInt(2);
             listOfHall.add(hall);
         }
-        c = db.select("select id, name, hall from tables");
+        c = db.select("select id, name, hall, header from tables");
         while (c.moveToNext()) {
             STable t = new STable();
             t.id = c.getInt(0);
             t.name = c.getString(1);
             t.hall = c.getInt(2);
+            t.header = c.getString(3);
             listOfTables.add(t);
         }
     }

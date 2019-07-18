@@ -9,9 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
 public class CDatabase extends SQLiteOpenHelper {
-    public static final int dbversion = 4;
+    public static final int dbversion = 6;
     private ContentValues contentValues;
     private SQLiteDatabase dbLite;
+    private Cursor cursor;
 
     public CDatabase(@Nullable Context context) {
         super(context, "cafe5droid", null, dbversion);
@@ -20,12 +21,15 @@ public class CDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table menu (menuname text, part1 text, part2 text, dishname text, " +
+        db.execSQL("create table menu (menuname text, part1 text, part2 text, dishcode, dishname text, " +
                 "price text, store text,  adgcode text, print1 text, print2 text, " +
                 "remind text, dishcolor text, typecolor text, comment text, img text)");
         db.execSQL("create table menuname (name text)");
         db.execSQL("create table hall (id integer, name text, settings integer)");
-        db.execSQL("create table tables (id integer, name text, hall integer)");
+        db.execSQL("create table tables (id integer, name text, hall integer, header text)");
+        db.execSQL("create table body (id integer primary key autoincrement, tableid integer, header text, bodyid text, dishcode text, dishname text, " +
+                "qty1 text, qty2 text, price text, service text, discount text, total text, store text, " +
+                "print1 text, print2 text, comment text, remind text, adgcode text, removereason text)");
     }
 
     public void noException(SQLiteDatabase db, String sql) {
@@ -43,6 +47,7 @@ public class CDatabase extends SQLiteOpenHelper {
             noException(db, "drop table menuname");
             noException(db, "drop table hall");
             noException(db, "drop table tables");
+            noException(db, "drop table body");
             onCreate(db);
         }
     }
@@ -66,7 +71,23 @@ public class CDatabase extends SQLiteOpenHelper {
     }
 
     public Cursor select(String sql) {
-        return dbLite.rawQuery(sql, null);
+        cursor = dbLite.rawQuery(sql, null);
+        return cursor;
+    }
+
+    public boolean moveToNext() {
+        if (cursor == null) {
+            return false;
+        }
+        return cursor.moveToNext();
+    }
+
+    public int getInt(String columnName) {
+        return cursor.getInt(cursor.getColumnIndex(columnName));
+    }
+
+    public String getString(String columnName) {
+        return cursor.getString(cursor.getColumnIndex(columnName));
     }
 
     public boolean insert(String table) {
@@ -78,6 +99,16 @@ public class CDatabase extends SQLiteOpenHelper {
             return false;
         }
         return true;
+    }
+
+    public int insertWithId(String table) {
+        if (insert(table)) {
+            Cursor c = dbLite.rawQuery("select last_insert_rowid()", null);
+            if (c.moveToLast()) {
+                return c.getInt(0);
+            }
+        }
+        return 0;
     }
 
     public void close() {
