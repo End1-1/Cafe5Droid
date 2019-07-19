@@ -17,6 +17,7 @@ import com.example.cafe5droid.Fragments.Card;
 import com.example.cafe5droid.Fragments.Order;
 import com.example.cafe5droid.R;
 import com.example.cafe5droid.Structures.SDish;
+import com.example.cafe5droid.Structures.SStaff;
 import com.example.cafe5droid.Structures.STable;
 import com.google.gson.JsonObject;
 
@@ -85,13 +86,18 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
     public void checkout() {
         try {
             JSONObject o = new JSONObject();
+            SStaff staff = new SStaff();
+            staff.get(this);
             o.put("cmd", CSocketClient.cmd_apporder);
-            o.put("tableid", table.id);
+            o.put("tableid", String.valueOf(table.id));
+            o.put("hallid", String.valueOf(table.hall));
             o.put("header", table.header);
+            o.put("staffid", String.valueOf(staff.id));
             JSONArray ja = new JSONArray();
             for (int i = 0; i < adOrder.getItemCount(); i++) {
                 SDish d = adOrder.getDish(i);
                 JSONObject jd = new JSONObject();
+                jd.put("state", "1");
                 jd.put("dishcode", d.id);
                 jd.put("dishname", d.name);
                 jd.put("adgcode", d.adgCode);
