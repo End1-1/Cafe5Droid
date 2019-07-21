@@ -32,4 +32,10 @@
     <string name="Basket">Basket</string>
     <string name="SettingsPassword">Settings password</string>
     <string name="Cancel">Cancel</string>
+    <string name="EmptyOrder">Order is empty</string>
+    <string name="CallStaff">Call staff</string>
+    <string name="CouldNotCallStaff">Could not call staff</string>
+    <string name="CallStaffAccepted">Call staff accepted</string>
+    <string name="Info">Info</string>
+    <string name="ConnectionError">Connection Error</string>
 </resources>

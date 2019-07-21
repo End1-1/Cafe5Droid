@@ -26,11 +26,21 @@
             android:id="@+id/tvStaff"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center_vertical"
+            android:text="@string/Staff"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:text="@string/Staff" />
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivCallStaff"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/bell" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/ivShowCard"
