@@ -27,7 +27,7 @@ public class Order extends Fragment implements DishPart1Adapter.DishPart1Adapter
     private RecyclerView rvDishPart1;
     private RecyclerView rvDishPart2;
     private RecyclerView rvDish;
-    private ImageView ivExpandPart2;
+    public ImageView ivExpandPart2;
     private ImageView ivDept;
     private TextView tvDept;
     private TextView tvPart2;
@@ -43,19 +43,22 @@ public class Order extends Fragment implements DishPart1Adapter.DishPart1Adapter
         rvDishPart1 = v.findViewById(R.id.rvDept);
         rvDishPart1.setLayoutManager(new GridLayoutManager(getActivity(), CMenu.listOfPart1.size() == 0 ? 1 : CMenu.listOfPart1.size()));
         rvDishPart1.setAdapter(adDishPart1);
+        rvDishPart1.setVisibility(View.GONE);
         tvDept = v.findViewById(R.id.tvDept);
         tvDept.setOnClickListener(this);
+        tvDept.setVisibility(View.GONE);
+        ivDept = v.findViewById(R.id.ivDept);
+        ivDept.setOnClickListener(this);
+        ivDept.setVisibility(View.GONE);
         tvPart2 = v.findViewById(R.id.tvDishTypeName);
         tvPart2.setOnClickListener(this);
         DishPart2Adapter adDishPart2 = new DishPart2Adapter(inflater, this);
         rvDishPart2 = v.findViewById(R.id.rvPart2);
-        int spanCount = 1;
+        int spanCount = 2;
         rvDishPart2.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
         rvDishPart2.setAdapter(adDishPart2);
         ivExpandPart2 = v.findViewById(R.id.ivExpandDishType);
         ivExpandPart2.setOnClickListener(this);
-        ivDept = v.findViewById(R.id.ivDept);
-        ivDept.setOnClickListener(this);
         DishAdapter adDish = new DishAdapter(inflater, this);
         rvDish = v.findViewById(R.id.rvDishes);
         rvDish.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -65,6 +68,7 @@ public class Order extends Fragment implements DishPart1Adapter.DishPart1Adapter
             menu = CPref.menuName;
             filterMenu();
         }
+        onClick(tvPart2);
         return v;
     }
 

@@ -12,6 +12,8 @@ public final class CPref {
     public static int lastTable;
     public static String settingsPassword;
     public static int lastMessage;
+    public static float serviceValue;
+    public static boolean backFromOrder = false;
 
     private static final String prefName  = "CAFE5DROID";
 
@@ -23,6 +25,7 @@ public final class CPref {
         lastTable = getInt(context, "last_table");
         settingsPassword = getString(context, "settings_password");
         lastMessage = getInt(context, "lastmessage");
+        serviceValue = getFloat(context, "servicevalue");
     }
 
     private static SharedPreferences pref(Context context) {
@@ -46,6 +49,16 @@ public final class CPref {
     public static void setInt(Context context, String key, int value) {
         SharedPreferences.Editor e = pref(context).edit();
         e.putInt(key, value);
+        e.commit();
+    }
+
+    public static float getFloat(Context context, String key) {
+        return pref(context).getFloat(key, 0);
+    }
+
+    public static void setFloat(Context context, String key, float value) {
+        SharedPreferences.Editor e = pref(context).edit();
+        e.putFloat(key, value);
         e.commit();
     }
 
@@ -77,5 +90,10 @@ public final class CPref {
     public static void setLastMessage(Context context, int msg) {
         lastMessage = msg;
         setInt(context, "lastmessage", msg);
+    }
+
+    public static void setServiceValue(Context context, float value) {
+        serviceValue = value;
+        setFloat(context, "servicevalue", value);
     }
 }

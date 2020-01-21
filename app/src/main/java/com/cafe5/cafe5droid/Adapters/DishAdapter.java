@@ -1,8 +1,10 @@
 package com.cafe5.cafe5droid.Adapters;
 
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -37,6 +39,22 @@ public class DishAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             imageView = v.findViewById(R.id.ivDish);
             imgCart = v.findViewById(R.id.ivAddToCard);
             imgCart.setOnClickListener(this);
+            imgCart.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            v.getBackground().setColorFilter(-0x1f0b8adf, PorterDuff.Mode.SRC_ATOP);
+                            v.invalidate();
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            v.getBackground().clearColorFilter();
+                            v.invalidate();
+                            break;
+                    }
+                    return false;
+                }
+            });
         }
 
         public void bind(SDish d) {

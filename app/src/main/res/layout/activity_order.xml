@@ -33,8 +33,10 @@
 
         <ImageView
             android:id="@+id/ivCallStaff"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/bell" />
 
         <Space
@@ -42,21 +44,34 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <ImageView
-            android:id="@+id/ivShowCard"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/basket" />
-
-        <TextView
-            android:id="@+id/tvBasket"
+        <LinearLayout
+            android:id="@+id/lvBasket"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="4dp"
-            android:gravity="center_vertical"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:text="@string/Basket" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivShowCard"
+                android:duplicateParentState="true"
+                android:clickable="false"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/basket" />
+
+            <TextView
+                android:id="@+id/tvBasket"
+                android:duplicateParentState="true"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="4dp"
+                android:gravity="center_vertical"
+                android:text="@string/Basket"
+                android:textColor="@color/colorBlack"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
 

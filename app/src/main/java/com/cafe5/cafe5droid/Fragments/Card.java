@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.cafe5.cafe5droid.Activities.AOrder;
 import com.cafe5.cafe5droid.Adapters.OrderAdapter;
+import com.cafe5.cafe5droid.Classes.CPref;
 import com.cafe5.cafe5droid.R;
 import com.cafe5.cafe5droid.Structures.SDish;
 
@@ -33,13 +34,14 @@ public class Card extends Fragment implements View.OnClickListener, OrderAdapter
         ivBack.setOnClickListener(this);
         tvCheckout = v.findViewById(R.id.tvCheckout);
         tvCheckout.setOnClickListener(this);
+        v.findViewById(R.id.tvReceipt).setOnClickListener(this);
         tvTotal = v.findViewById(R.id.tvAmount);
         rvOrder = v.findViewById(R.id.rvCard);
         rvOrder.setLayoutManager(new LinearLayoutManager(getContext()));
         adOrder = ((AOrder) getActivity()).adOrder;
         adOrder.orderDishSelected = this;
         rvOrder.setAdapter(adOrder);
-        tvTotal.setText(String.format("%s - %s", getString(R.string.TotalAmount), adOrder.total()));
+        orderDishSelected(null);
         return v;
     }
 
@@ -53,12 +55,20 @@ public class Card extends Fragment implements View.OnClickListener, OrderAdapter
             case R.id.tvCheckout:
                 o.checkout();
                 break;
+            case R.id.tvReceipt:
+                o.callReceipt();
+                break;
         }
     }
 
     @Override
     public void orderDishSelected(SDish dish) {
-        tvTotal.setText(String.format("%s - %s", getString(R.string.TotalAmount), adOrder.total()));
+        String fin = getString(R.string.Counted) + ": " + Float.valueOf(adOrder.total()).toString() ;
+        if (CPref.serviceValue > 0.001) {
+            fin  += "\r\n" + getString(R.string.ServiceAmount) + "(" + Float.toString(CPref.serviceValue * 100) + "%): " + Float.toString(Float.valueOf(adOrder.total()) * CPref.serviceValue);
+            fin += "\r\n" + getString(R.string.TotalAmount) +": " + Float.toString(Float.valueOf(adOrder.total()) + (Float.valueOf(adOrder.total()) * CPref.serviceValue));
+        }
+        tvTotal.setText(fin);
     }
 }
 

@@ -140,9 +140,15 @@ public class AHall extends CActivity implements HallAdapter.HallAdapterSelected,
 
     @Override
     public void tablesOptionSelected(STable table) {
+        if (CPref.backFromOrder) {
+            CPref.backFromOrder = false;
+            return;
+        }
         ArrayMap<String, Serializable> v = new ArrayMap<>();
         v.put("table", table);
         createActivityWithData(AOrder.class, v);
+        currentHall = CHall.getHall(table.hall);
+        CPref.setCurrentHall(this, currentHall.id);
         CPref.setLastTable(this, table.id);
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cafe5droid</string>
+    <string name="app_name">KinoPark</string>
     <string name="title_activity_alogin">ALogin</string>
     <string name="Password">Password</string>
     <string name="Login">Login</string>
@@ -38,4 +38,11 @@
     <string name="CallStaffAccepted">Call staff accepted</string>
     <string name="Info">Info</string>
     <string name="ConnectionError">Connection Error</string>
+    <string name="Receipt">Receipt</string>
+    <string name="CallReceiptAccepted">You will receive the receipt soon</string>
+    <string name="CallReceiptIncomplete">Call receipt was failed</string>
+    <string name="ServiceValue">Service value</string>
+    <string name="FixedTable">Fixed Table ID</string>
+    <string name="Counted">Counted</string>
+    <string name="ServiceAmount">Service amount</string>
 </resources>

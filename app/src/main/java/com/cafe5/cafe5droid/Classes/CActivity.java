@@ -190,6 +190,5 @@ public class CActivity extends AppCompatActivity implements View.OnClickListener
     }
 
     public void onPassword(String pwd, int id) {
-
     }
 }

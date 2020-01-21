@@ -39,4 +39,11 @@
     <string name="Info">Տեղեկություն</string>
     <string name="CallStaffAccepted">Կանչը ընդունված է</string>
     <string name="ConnectionError">Կապի սխալ</string>
+    <string name="Receipt">Փակել հաշիվը</string>
+    <string name="CallReceiptAccepted">Շուտով ձեզ կմոտեցնեն հաշիվը</string>
+    <string name="CallReceiptIncomplete">Սխալ</string>
+    <string name="ServiceValue">Սպասարկման տոկոս</string>
+    <string name="FixedTable">Ամրագրված սեղան</string>
+    <string name="Counted">Հաշվարկված է</string>
+    <string name="ServiceAmount">Սպասարկման գումար</string>
 </resources>

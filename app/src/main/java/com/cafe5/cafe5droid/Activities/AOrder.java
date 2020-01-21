@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,10 +55,12 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+        findViewById(R.id.lvBasket).setOnClickListener(this);
+        findViewById(R.id.tvTable).setOnClickListener(this);
         place = textView(R.id.tvTable);
-        ivCheckout = imageView(R.id.ivShowCard, this);
+        //ivCheckout = imageView(R.id.ivShowCard, this);
         imageView(R.id.ivCallStaff, this);
-        textView(R.id.tvBasket).setOnClickListener(this);
+        //textView(R.id.tvBasket).setOnClickListener(this);
         table = (STable) getIntent().getSerializableExtra("table");
         if (table != null) {
             place.setText(String.format("%s: %s", getString(R.string.Place), table.name));
@@ -79,6 +83,13 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.lvContainer, order, FRAGMENT_ORDER);
         fragmentTransaction.commit();
+        try {
+            JSONObject o = new JSONObject();
+            o.put("cmd", CSocketClientTask.cmd_menu);
+            sendMessage(o.toString(), R.string.ProcessMenu);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -98,12 +109,37 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
                 fragmentTransaction.replace(R.id.lvContainer, card, FRAGMENT_ORDER);
                 fragmentTransaction.commit();
                 break;
-            case R.id.tvBasket:
+            //case R.id.tvBasket:
+            case R.id.lvBasket:
                 buttonClick(R.id.ivShowCard);
                 break;
             case R.id.ivCallStaff:
                 callStaff();
                 break;
+            case R.id.tvTable:
+                if (CPref.settingsPassword.isEmpty() || allowBack) {
+                    CPref.backFromOrder = true;
+                    super.onBackPressed();
+                } else {
+                    createPasswordDialog(getString(R.string.Empty), 0);
+                }
+                break;
+        }
+    }
+
+    public void callReceipt() {
+        if (adOrder.getItemCount() == 0) {
+            alertDialog(R.string.Error, R.string.EmptyOrder);
+            return;
+        }
+        try {
+            JSONObject o = new JSONObject();
+            o.put("cmd", CSocketClientTask.cmd_callreceipt);
+            o.put("tablename", table.name);
+            sendMessage(o.toString(), R.string.Receipt);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            alertDialogText(R.string.Error, e.getMessage());
         }
     }
 
@@ -123,6 +159,7 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
             o.put("staffid", String.valueOf(staff.id));
             o.put("tablename", table.name);
             o.put("staffname", staff.fullName());
+            o.put("servicevalue", Double.toString(CPref.serviceValue));
             JSONArray ja = new JSONArray();
             for (int i = 0; i < adOrder.getItemCount(); i++) {
                 SDish d = adOrder.getDish(i);
@@ -170,11 +207,15 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
 
     @Override
     public void onBackPressed() {
-        if (CPref.settingsPassword.isEmpty() || allowBack) {
-            CPref.setLastTable(this, 0);
-            super.onBackPressed();
-        } else {
-            createPasswordDialog(getString(R.string.Empty), 0);
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.lvContainer);
+        if(f instanceof Card) {
+            goToMenu();
+            return;
+        }
+        if (f instanceof Order) {
+            Order o = (Order) f;
+            o.onClick(o.ivExpandPart2);
+            return;
         }
     }
 
@@ -265,6 +306,23 @@ public class AOrder extends CActivity implements  OrderAdapter.OrderDishSelected
                         alertDialog(R.string.Info, R.string.CallStaffAccepted);
                     } else {
                         alertDialog(R.string.Error, R.string.CouldNotCallStaff);
+                    }
+                    break;
+                case CSocketClientTask.cmd_callreceipt:
+                    if (o.getInt("reply") == 1) {
+                        alertDialog(R.string.Info, R.string.CallReceiptAccepted);
+                    } else {
+                        alertDialog(R.string.Error, R.string.CallReceiptIncomplete);
+                    }
+                    break;
+                case CSocketClientTask.cmd_menu:
+                    try {
+                        ja = o.getJSONArray("menu");
+                        CMenu.processDishes(ja);
+                        CMenu.save(this);
+                        adOrder.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                     break;
             }

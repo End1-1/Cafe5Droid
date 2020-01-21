@@ -27,7 +27,7 @@ public class DishPart2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public DishPart2ViewHolder(@NonNull View v) {
             super(v);
-            v.setOnClickListener(this);
+            v.findViewById(R.id.lvDishPart2).setOnClickListener(this);
             tvName = v.findViewById(R.id.tvName);
             ivDishType = v.findViewById(R.id.ivDishType);
         }

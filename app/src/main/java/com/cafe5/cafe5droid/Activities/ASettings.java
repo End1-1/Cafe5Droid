@@ -26,6 +26,8 @@ public class ASettings extends CActivity {
         setEditText(R.id.edServerIP, CPref.serverIP);
         setEditInteger(R.id.edServerPort, CPref.serverPort);
         setEditText(R.id.edSettingsPassword, CPref.settingsPassword);
+        setEditText(R.id.edFixedTableId, Integer.toString(CPref.lastTable));
+        setEditText(R.id.edServiceValue, Double.toString(CPref.serviceValue));
         button(R.id.btnDownloadMenu);
         button(R.id.btnSave);
         button(R.id.btnDownloadHall);
@@ -45,6 +47,9 @@ public class ASettings extends CActivity {
                 CPref.setString(this, "server_id", editTextText(R.id.edServerIP));
                 CPref.setInt(this, "server_port", editTextInteger(R.id.edServerPort));
                 CPref.setSettingsPassword(this, editTextText(R.id.edSettingsPassword));
+                String f = editTextText(R.id.edServiceValue);
+                CPref.setServiceValue(this, Float.valueOf(f));
+                CPref.setLastTable(this, editTextInteger(R.id.edFixedTableId));
                 if (spMenu.getSelectedItem() != null) {
                     CPref.setString(this, "menu", spMenu.getSelectedItem().toString());
                 }
@@ -92,6 +97,7 @@ public class ASettings extends CActivity {
                     CMenu.save(this);
                     ArrayAdapter<String> aa = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CMenu.listOfMenu);
                     spMenu.setAdapter(aa);
+                    alertDialog(R.string.Empty, R.string.Saved);
                     break;
                 case CSocketClientTask.cmd_hall:
                     JSONArray halls = o.getJSONArray("halls");

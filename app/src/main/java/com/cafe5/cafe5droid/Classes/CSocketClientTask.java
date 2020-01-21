@@ -25,6 +25,7 @@ public class CSocketClientTask extends AsyncTask<String, Integer, Integer> {
     public final static int cmd_apporder = 21;
     public final static int cmd_callstaff = 22;
     public final static int cmd_messagelist = 23;
+    public final static int cmd_callreceipt = 24;
 
     JSONObject reply = new JSONObject();
     public String strData;

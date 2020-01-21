@@ -22,21 +22,27 @@
         <TextView
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:text="@string/TotalAmount"
             android:gravity="center_vertical"
+            android:text="@string/TotalAmount"
             android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvCheckout"
+            android:id="@+id/tvReceipt"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/Checkout"
             android:gravity="center_vertical"
+            android:shadowColor="@color/colorWhite"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="0.6"
+            android:text="@string/Receipt"
             android:textSize="18dp"
             android:textStyle="italic" />
+
     </LinearLayout>
 
     <ScrollView
@@ -58,5 +64,56 @@
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:background="#8BC34A"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/right_arrow" />
+
+        <TextView
+            android:id="@+id/tvCheckout"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:shadowColor="@color/colorWhite"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="0.6"
+            android:text="@string/Checkout"
+            android:textSize="22dp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_margin="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/left_arrow" />
+
+        <View
+            android:id="@+id/view8"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </LinearLayout>
