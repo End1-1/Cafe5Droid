@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Franchisee"></activity>
         <activity android:name=".Activities.AHall" />
         <activity android:name=".Activities.ASettings" />
         <activity android:name=".Activities.AOrder" />
